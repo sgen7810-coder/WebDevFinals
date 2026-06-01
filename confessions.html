@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Confessions – ConfessHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        .clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+        .filter-chip{border-radius:50px;cursor:pointer;transition:.2s;border:2px solid #e9d5ff;background:#fff}
+        .filter-chip.active,.filter-chip:hover{background:var(--primary-color);color:#fff;border-color:var(--primary-color)}
+        .sort-btn.active{color:var(--primary-color);border-bottom:2px solid var(--primary-color);font-weight:600}
+        .search-wrapper{position:relative}
+        .search-wrapper .fa-search{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#9ca3af;pointer-events:none}
+        .search-wrapper input{padding-left:40px}
+        .card-stat{background:linear-gradient(135deg,#faf5ff,#fff);border:1px solid #e9d5ff!important}
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <div class="logo-icon"><i class="fas fa-comment"></i></div>
+            <span class="fw-bold">ConfessHub</span>
+            <span class="text-muted small d-none d-sm-inline">Share anonymously</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link active fw-semibold" href="confessions.html">Confessions</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="rules.html">Rules</a></li>
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <a class="btn btn-primary btn-sm px-3" href="share.html">
+                        <i class="fas fa-plus me-1"></i>Share
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="py-4 border-bottom bg-white">
+    <div class="container">
+        <div class="row align-items-center g-3">
+            <div class="col-md-6">
+                <h1 class="h3 fw-bold mb-1">All Confessions</h1>
+                <p class="text-muted small mb-0">Browse anonymous confessions from the community</p>
+            </div>
+            <div class="col-md-6">
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input id="searchInput" type="text" class="form-control" placeholder="Search confessions…">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-4">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-3">
+                <div class="card border-0 shadow-sm p-3 mb-3">
+                    <h6 class="fw-semibold mb-3"><i class="fas fa-th-large me-2 text-primary"></i>Categories</h6>
+                    <div id="categoryFilters" class="d-flex flex-column gap-2"></div>
+                </div>
+                <div class="card card-stat border-0 shadow-sm p-3">
+                    <h6 class="fw-semibold mb-3"><i class="fas fa-chart-bar me-2 text-primary"></i>Stats</h6>
+                    <div class="d-flex justify-content-between text-muted small mb-2">
+                        <span>Total</span><strong class="text-dark" id="statTotal">0</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small mb-2">
+                        <span>Showing</span><strong class="text-dark" id="statShowing">0</strong>
+                    </div>
+                    <div class="d-flex justify-content-between text-muted small">
+                        <span>Total likes</span><strong class="text-primary" id="statLikes">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+                    <span class="text-muted small">Sort by:</span>
+                    <button class="btn btn-sm btn-link text-muted px-1 sort-btn active" data-sort="newest">Newest</button>
+                    <span class="text-muted">·</span>
+                    <button class="btn btn-sm btn-link text-muted px-1 sort-btn" data-sort="popular">Most Liked</button>
+                    <span class="text-muted">·</span>
+                    <button class="btn btn-sm btn-link text-muted px-1 sort-btn" data-sort="discussed">Most Discussed</button>
+                    <div class="ms-auto d-lg-none">
+                        <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas">
+                            <i class="fas fa-filter me-1"></i>Filter
+                        </button>
+                    </div>
+                </div>
+                <div class="row g-4" id="confessionsGrid"></div>
+                <div id="emptyState" class="text-center py-5 d-none">
+                    <div style="font-size:4rem" class="mb-3">🔍</div>
+                    <h5 class="fw-semibold">No confessions found</h5>
+                    <p class="text-muted">Try a different search term or select another category.</p>
+                    <button class="btn btn-outline-primary" onclick="resetFilters()">Clear Filters</button>
+                </div>
+                <div class="d-flex justify-content-center mt-5" id="paginationWrap"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="offcanvas offcanvas-start" id="filterOffcanvas" tabindex="-1">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title fw-bold">Filter by Category</h5>
+        <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div id="categoryFiltersMobile" class="d-flex flex-column gap-2"></div>
+    </div>
+</div>
+
+<footer class="py-4 border-top mt-5 bg-white">
+    <div class="container text-center text-muted small">
+        <p class="mb-2">💜 ConfessHub — Share anonymously, support each other</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="about.html" class="text-muted text-decoration-none">About</a>
+            <a href="rules.html" class="text-muted text-decoration-none">Rules</a>
+            <a href="share.html" class="text-muted text-decoration-none">Share</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const CATEGORIES=[
+    {label:"All",emoji:"🌐"},{label:"School-life",emoji:"🎓"},
+    {label:"Work",emoji:"💼"},{label:"Relationship",emoji:"❤️"},
+    {label:"Social",emoji:"👥"},{label:"Family",emoji:"🏠"},
+    {label:"Health",emoji:"💚"},{label:"Anonymous",emoji:"🎭"},
+    {label:"Other",emoji:"✨"}
+];
+const SEED=[
+    {id:1,text:"I'm shocked by how that one teacher always believes we can hear it all even when the whole class is whispering. She somehow knows everything.",category:"School-life",timeAgo:"3 hours ago",timestamp:Date.now()-10800000,likes:12,comments:[{},{id:2}]},
+    {id:2,text:"Sometimes I wish I had the courage to quit my job and travel full time. Life is too short to be stuck in a cubicle doing work you hate.",category:"Work",timeAgo:"5 hours ago",timestamp:Date.now()-18000000,likes:34,comments:[{}]},
+    {id:3,text:"I wish school would be better if people didn't judge each other all the time. We're all just trying to figure life out together.",category:"School-life",timeAgo:"7 hours ago",timestamp:Date.now()-25200000,likes:28,comments:[{},{},{}]},
+    {id:4,text:"I'm scared to show how much you mean to me but I really enjoy every moment we spend together. I just don't want to ruin what we have.",category:"Relationship",timeAgo:"1 day ago",timestamp:Date.now()-86400000,likes:55,comments:[]},
+    {id:5,text:"I spend more time daydreaming about a better life than actually working toward one. I know what I need to do but somehow never start.",category:"Social",timeAgo:"1 day ago",timestamp:Date.now()-90000000,likes:19,comments:[{}]},
+    {id:6,text:"If you're the person reading this, you matter! 💜 Never forget that the world is better with you in it.",category:"Social",timeAgo:"2 days ago",timestamp:Date.now()-172800000,likes:102,comments:[{},{}]},
+    {id:7,text:"My parents have no idea I dropped out of college three months ago. I go to the library every day to keep up the lie.",category:"Family",timeAgo:"3 days ago",timestamp:Date.now()-259200000,likes:88,comments:[{}]},
+    {id:8,text:"I've been pretending to be fine at work for so long that I forgot what actually feeling fine feels like. Burnout is real.",category:"Health",timeAgo:"4 days ago",timestamp:Date.now()-345600000,likes:73,comments:[{},{}]},
+    {id:9,text:"I secretly root for people to fail their presentations so mine looks better in comparison. I hate that I think this way.",category:"Work",timeAgo:"5 days ago",timestamp:Date.now()-432000000,likes:41,comments:[{}]},
+    {id:10,text:"I have a crush on my best friend's sibling and I have absolutely no idea what to do about it. Please don't judge me.",category:"Relationship",timeAgo:"6 days ago",timestamp:Date.now()-518400000,likes:63,comments:[{},{}]},
+    {id:11,text:"I cry in the shower so my family doesn't hear me. It's the only place I feel like I can truly let go.",category:"Family",timeAgo:"1 week ago",timestamp:Date.now()-604800000,likes:134,comments:[{}]},
+    {id:12,text:"I've had the same embarrassing memory from 7th grade replay in my head at least once a week for the past 10 years.",category:"School-life",timeAgo:"1 week ago",timestamp:Date.now()-648000000,likes:97,comments:[{},{}]}
+];
+
+const PER_PAGE=9;
+let currentCategory="All",currentSort="newest",currentPage=1,searchQuery="";
+
+function getUserConfessions(){try{return JSON.parse(localStorage.getItem('confessions')||'[]')}catch{return[]}}
+function getTotalLikes(id){try{const l=JSON.parse(localStorage.getItem('likes')||'{}');const base=(SEED.find(c=>c.id===id)||{}).likes||0;return l[id]!==undefined?l[id]:base}catch{return 0}}
+function escapeHtml(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML}
+
+function getAllData(){return[...getUserConfessions(),...SEED]}
+
+function getFiltered(){
+    return getAllData().filter(c=>{
+        const matchCat=currentCategory==="All"||c.category===currentCategory;
+        const matchQ=!searchQuery||c.text.toLowerCase().includes(searchQuery);
+        return matchCat&&matchQ;
+    });
+}
+function getSorted(list){
+    return[...list].sort((a,b)=>{
+        if(currentSort==="newest")return b.timestamp-a.timestamp;
+        if(currentSort==="popular")return getTotalLikes(b.id)-getTotalLikes(a.id);
+        if(currentSort==="discussed")return(b.comments?.length||0)-(a.comments?.length||0);
+        return 0;
+    });
+}
+
+function render(){
+    const filtered=getSorted(getFiltered());
+    const total=filtered.length;
+    const pages=Math.ceil(total/PER_PAGE)||1;
+    currentPage=Math.min(currentPage,pages);
+    const slice=filtered.slice((currentPage-1)*PER_PAGE,currentPage*PER_PAGE);
+    const all=getAllData();
+    document.getElementById('statTotal').textContent=all.length;
+    document.getElementById('statShowing').textContent=total;
+    document.getElementById('statLikes').textContent=all.reduce((s,c)=>s+getTotalLikes(c.id),0);
+    const grid=document.getElementById('confessionsGrid');
+    grid.innerHTML='';
+    document.getElementById('emptyState').classList.toggle('d-none',total>0);
+    slice.forEach(c=>grid.innerHTML+=card(c));
+    renderPagination(pages);
+}
+
+function card(c){
+    const likes=getTotalLikes(c.id);
+    const comments=c.comments?.length||0;
+    const cat=CATEGORIES.find(k=>k.label===c.category)||{emoji:'✨',label:c.category};
+    return`<div class="col-md-6 col-xl-4"><a href="view-confession.html?id=${c.id}" class="text-decoration-none"><div class="card confession-card border-0 shadow-sm h-100"><div class="card-body d-flex flex-column"><div class="mb-3"><span class="badge bg-primary bg-opacity-10 text-primary">${cat.emoji} ${escapeHtml(c.category)}</span></div><p class="text-dark mb-3 flex-grow-1 clamp-3">${escapeHtml(c.text)}</p><div class="d-flex justify-content-between align-items-center text-muted small mt-auto"><div class="d-flex align-items-center gap-2"><div style="width:24px;height:24px;background:#f3e8ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem">👤</div><span>Anonymous</span></div><div class="d-flex gap-3"><span><i class="far fa-heart me-1"></i>${likes}</span><span><i class="far fa-comment me-1"></i>${comments}</span></div></div><div class="border-top mt-3 pt-2"><small class="text-muted"><i class="far fa-clock me-1"></i>${c.timeAgo}</small></div></div></div></a></div>`;
+}
+
+function renderPagination(pages){
+    const wrap=document.getElementById('paginationWrap');
+    if(pages<=1){wrap.innerHTML='';return}
+    let h='<nav><ul class="pagination">';
+    h+=`<li class="page-item${currentPage===1?' disabled':''}"><a class="page-link" href="#" onclick="goPage(${currentPage-1});return false">«</a></li>`;
+    for(let i=1;i<=pages;i++)h+=`<li class="page-item${i===currentPage?' active':''}"><a class="page-link" href="#" onclick="goPage(${i});return false">${i}</a></li>`;
+    h+=`<li class="page-item${currentPage===pages?' disabled':''}"><a class="page-link" href="#" onclick="goPage(${currentPage+1});return false">»</a></li>`;
+    h+='</ul></nav>';
+    wrap.innerHTML=h;
+}
+
+function goPage(p){currentPage=p;render();window.scrollTo({top:0,behavior:'smooth'})}
+
+function renderCategoryFilters(containerId){
+    const container=document.getElementById(containerId);
+    if(!container)return;
+    container.innerHTML='';
+    CATEGORIES.forEach(cat=>{
+        const btn=document.createElement('button');
+        btn.className=`btn btn-sm filter-chip text-start${currentCategory===cat.label?' active':''}`;
+        btn.innerHTML=`${cat.emoji} ${cat.label}`;
+        btn.onclick=()=>{currentCategory=cat.label;currentPage=1;renderCategoryFilters('categoryFilters');renderCategoryFilters('categoryFiltersMobile');render();};
+        container.appendChild(btn);
+    });
+}
+
+function resetFilters(){currentCategory="All";searchQuery="";currentPage=1;document.getElementById('searchInput').value='';renderCategoryFilters('categoryFilters');renderCategoryFilters('categoryFiltersMobile');render()}
+
+document.addEventListener('DOMContentLoaded',()=>{
+    renderCategoryFilters('categoryFilters');
+    renderCategoryFilters('categoryFiltersMobile');
+    render();
+    document.querySelectorAll('.sort-btn').forEach(btn=>btn.addEventListener('click',()=>{
+        currentSort=btn.dataset.sort;currentPage=1;
+        document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');render();
+    }));
+    let t;
+    document.getElementById('searchInput').addEventListener('input',e=>{
+        clearTimeout(t);t=setTimeout(()=>{searchQuery=e.target.value.trim().toLowerCase();currentPage=1;render()},300);
+    });
+});
+</script>
+</body>
+</html>

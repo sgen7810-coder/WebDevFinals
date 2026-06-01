@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession – ConfessHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        .clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+        .confession-body{font-size:1.15rem;line-height:1.8;color:#1f2937}
+        .like-btn{transition:.2s}
+        .like-btn.liked{color:#ef4444}
+        .comment-avatar{width:36px;height:36px;background:linear-gradient(135deg,#f3e8ff,#ddd6fe);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+        .confession-hero{background:linear-gradient(135deg,#faf5ff 0%,#fff 100%);border-bottom:1px solid #f3e4ff}
+        .related-card{transition:.2s;cursor:pointer}
+        .related-card:hover{border-color:var(--primary-color)!important;box-shadow:0 2px 8px rgba(124,58,237,.1)}
+        .share-btn{transition:.2s}
+        .share-btn:hover{background:#f3e8ff}
+        #notFound{display:none}
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <div class="logo-icon"><i class="fas fa-comment"></i></div>
+            <span class="fw-bold">ConfessHub</span>
+            <span class="text-muted small d-none d-sm-inline">Share anonymously</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="confessions.html">Confessions</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="rules.html">Rules</a></li>
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <a class="btn btn-primary btn-sm px-3" href="share.html">
+                        <i class="fas fa-plus me-1"></i>Share
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Not found state -->
+<div id="notFound" class="container py-5 text-center">
+    <div style="font-size:4rem" class="mb-3">🔍</div>
+    <h3 class="fw-bold mb-2">Confession Not Found</h3>
+    <p class="text-muted mb-4">This confession may have been removed or the link is invalid.</p>
+    <a href="confessions.html" class="btn btn-primary">Browse Confessions</a>
+</div>
+
+<!-- Main content -->
+<div id="mainContent">
+
+    <!-- Confession hero -->
+    <section class="confession-hero py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Breadcrumb -->
+                    <nav aria-label="breadcrumb" class="mb-4">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html" class="text-primary text-decoration-none">Home</a></li>
+                            <li class="breadcrumb-item"><a href="confessions.html" class="text-primary text-decoration-none">Confessions</a></li>
+                            <li class="breadcrumb-item active">View</li>
+                        </ol>
+                    </nav>
+
+                    <!-- Category badge + meta -->
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span id="categoryBadge" class="badge bg-primary bg-opacity-10 text-primary px-3 py-2"></span>
+                        <span class="text-muted small" id="confessionTime"></span>
+                    </div>
+
+                    <!-- Main text -->
+                    <p id="confessionText" class="confession-body mb-5"></p>
+
+                    <!-- Author row -->
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="avatar-circle">👤</div>
+                            <div>
+                                <div class="fw-semibold small">Anonymous</div>
+                                <div class="text-muted small">Community Member</div>
+                            </div>
+                        </div>
+                        <!-- Actions -->
+                        <div class="d-flex align-items-center gap-2">
+                            <button id="likeBtn" class="btn btn-outline-secondary btn-sm like-btn" onclick="toggleLike()">
+                                <i class="far fa-heart me-1"></i><span id="likeCount">0</span>
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm share-btn" onclick="shareConfession()">
+                                <i class="fas fa-share-alt me-1"></i>Share
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="document.getElementById('commentForm').scrollIntoView({behavior:'smooth'})">
+                                <i class="far fa-comment me-1"></i>Comment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comments + Sidebar -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center g-4">
+                <div class="col-lg-8">
+
+                    <!-- Comment form -->
+                    <div class="card border-0 shadow-sm p-4 mb-4" id="commentForm">
+                        <h5 class="fw-semibold mb-3"><i class="far fa-comment me-2 text-primary"></i>Leave a Comment</h5>
+                        <div class="d-flex gap-3">
+                            <div class="comment-avatar flex-shrink-0">👤</div>
+                            <div class="flex-grow-1">
+                                <textarea id="commentText" class="form-control mb-2" rows="3"
+                                    placeholder="Share your thoughts or support… (anonymous)"></textarea>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted"><i class="fas fa-shield-alt me-1"></i>Posted anonymously</small>
+                                    <button class="btn btn-primary btn-sm px-4" onclick="submitComment()">
+                                        <i class="fas fa-paper-plane me-1"></i>Post
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments list -->
+                    <div class="card border-0 shadow-sm p-4">
+                        <h5 class="fw-semibold mb-4"><i class="fas fa-comments me-2 text-primary"></i>Comments <span id="commentCountBadge" class="badge bg-primary ms-1">0</span></h5>
+                        <div id="commentsList"></div>
+                        <div id="noComments" class="text-center py-4 text-muted">
+                            <div style="font-size:2rem" class="mb-2">💬</div>
+                            <p class="mb-0 small">No comments yet. Be the first to respond!</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Sidebar: related -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm p-4 sticky-top" style="top:80px">
+                        <h6 class="fw-semibold mb-3">Related Confessions</h6>
+                        <div id="relatedConfessions"></div>
+                        <a href="confessions.html" class="btn btn-outline-primary btn-sm w-100 mt-3">
+                            <i class="fas fa-th-list me-1"></i>View All
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer class="py-4 border-top bg-white">
+    <div class="container text-center text-muted small">
+        <p class="mb-2">💜 ConfessHub — Share anonymously, support each other</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="about.html" class="text-muted text-decoration-none">About</a>
+            <a href="rules.html" class="text-muted text-decoration-none">Rules</a>
+            <a href="share.html" class="text-muted text-decoration-none">Share</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const SEED=[
+    {id:1,text:"I'm shocked by how that one teacher always believes we can hear it all even when the whole class is whispering. She somehow knows everything.",category:"School-life",timeAgo:"3 hours ago",timestamp:Date.now()-10800000,likes:12,comments:[{id:1,author:"Anonymous",avatar:"👤",text:"Same! She has ears like a bat 😂",timeAgo:"2 hours ago"},{id:2,author:"Anonymous",avatar:"🎭",text:"Teachers develop a sixth sense after years in the classroom.",timeAgo:"1 hour ago"}]},
+    {id:2,text:"Sometimes I wish I had the courage to quit my job and travel full time. Life is too short to be stuck in a cubicle doing work you hate.",category:"Work",timeAgo:"5 hours ago",timestamp:Date.now()-18000000,likes:34,comments:[{id:1,author:"Anonymous",avatar:"✈️",text:"Do it! You only regret the chances you didn't take.",timeAgo:"4 hours ago"}]},
+    {id:3,text:"I wish school would be better if people didn't judge each other all the time. We're all just trying to figure life out together.",category:"School-life",timeAgo:"7 hours ago",timestamp:Date.now()-25200000,likes:28,comments:[{id:1,author:"Anonymous",avatar:"💜",text:"100% agree. The judgment is exhausting.",timeAgo:"6 hours ago"},{id:2,author:"Anonymous",avatar:"🌸",text:"That's why I eat lunch alone sometimes. Less drama.",timeAgo:"5 hours ago"},{id:3,author:"Anonymous",avatar:"😔",text:"Be the change you wish to see!",timeAgo:"3 hours ago"}]},
+    {id:4,text:"I'm scared to show how much you mean to me but I really enjoy every moment we spend together. I just don't want to ruin what we have.",category:"Relationship",timeAgo:"1 day ago",timestamp:Date.now()-86400000,likes:55,comments:[]},
+    {id:5,text:"I spend more time daydreaming about a better life than actually working toward one. I know what I need to do but somehow never start.",category:"Social",timeAgo:"1 day ago",timestamp:Date.now()-90000000,likes:19,comments:[{id:1,author:"Anonymous",avatar:"💪",text:"Start small. One tiny step today.",timeAgo:"23 hours ago"}]},
+    {id:6,text:"If you're the person reading this, you matter! 💜 Never forget that the world is better with you in it.",category:"Social",timeAgo:"2 days ago",timestamp:Date.now()-172800000,likes:102,comments:[{id:1,author:"Anonymous",avatar:"🌻",text:"I needed this today. Thank you.",timeAgo:"1 day ago"},{id:2,author:"Anonymous",avatar:"😢",text:"This made me tear up a little.",timeAgo:"20 hours ago"}]},
+    {id:7,text:"My parents have no idea I dropped out of college three months ago. I go to the library every day to keep up the lie. I'm terrified of telling them.",category:"Family",timeAgo:"3 days ago",timestamp:Date.now()-259200000,likes:88,comments:[{id:1,author:"Anonymous",avatar:"🤍",text:"The longer you wait, the harder it gets. I've been there.",timeAgo:"2 days ago"}]},
+    {id:8,text:"I've been pretending to be fine at work for so long that I forgot what actually feeling fine feels like. Burnout is real.",category:"Health",timeAgo:"4 days ago",timestamp:Date.now()-345600000,likes:73,comments:[{id:1,author:"Anonymous",avatar:"💙",text:"Please take care of yourself. Your health comes first.",timeAgo:"3 days ago"},{id:2,author:"Anonymous",avatar:"🌿",text:"Therapy helped me a lot. Seriously consider it.",timeAgo:"2 days ago"}]},
+    {id:9,text:"I secretly root for people to fail their presentations so mine looks better in comparison. I hate that I think this way.",category:"Work",timeAgo:"5 days ago",timestamp:Date.now()-432000000,likes:41,comments:[{id:1,author:"Anonymous",avatar:"😅",text:"More people think this than you'd expect. Human nature.",timeAgo:"4 days ago"}]},
+    {id:10,text:"I have a crush on my best friend's sibling and I have absolutely no idea what to do about it. Please don't judge me.",category:"Relationship",timeAgo:"6 days ago",timestamp:Date.now()-518400000,likes:63,comments:[{id:1,author:"Anonymous",avatar:"💗",text:"Classic situation. Maybe drop subtle hints?",timeAgo:"5 days ago"},{id:2,author:"Anonymous",avatar:"🙈",text:"No judgment here! We've all been there.",timeAgo:"4 days ago"}]},
+    {id:11,text:"I cry in the shower so my family doesn't hear me. It's the only place I feel like I can truly let go.",category:"Family",timeAgo:"1 week ago",timestamp:Date.now()-604800000,likes:134,comments:[{id:1,author:"Anonymous",avatar:"🌊",text:"You're not alone. So many of us do this.",timeAgo:"6 days ago"}]},
+    {id:12,text:"I've had the same embarrassing memory from 7th grade replay in my head at least once a week for the past 10 years.",category:"School-life",timeAgo:"1 week ago",timestamp:Date.now()-648000000,likes:97,comments:[{id:1,author:"Anonymous",avatar:"😂",text:"Nobody else remembers. It only lives rent-free in YOUR head.",timeAgo:"1 week ago"},{id:2,author:"Anonymous",avatar:"🙃",text:"Mine is from 5th grade and it still haunts me.",timeAgo:"6 days ago"}]}
+];
+
+const CAT_EMOJI={
+    "School-life":"🎓","Work":"💼","Relationship":"❤️","Social":"👥",
+    "Family":"🏠","Health":"💚","Anonymous":"🎭","Other":"✨"
+};
+
+let currentConfession=null;
+
+function escapeHtml(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML}
+
+function getUserConfessions(){try{return JSON.parse(localStorage.getItem('confessions')||'[]')}catch{return[]}}
+function getExtraComments(id){try{return JSON.parse(localStorage.getItem('extraComments')||'{}')[id]||[]}catch{return[]}}
+function getStoredLikes(id){try{const l=JSON.parse(localStorage.getItem('likes')||'{}');return l[id]!==undefined?l[id]:(currentConfession?.likes||0)}catch{return currentConfession?.likes||0}}
+function isLiked(id){try{return!!JSON.parse(localStorage.getItem('liked')||'{}')[id]}catch{return false}}
+
+function findConfession(id){
+    const user=getUserConfessions();
+    return user.find(c=>String(c.id)===String(id))||SEED.find(c=>String(c.id)===String(id))||null;
+}
+
+function renderConfession(c){
+    const emoji=CAT_EMOJI[c.category]||'✨';
+    document.getElementById('categoryBadge').textContent=`${emoji} ${c.category}`;
+    document.getElementById('confessionTime').textContent=c.timeAgo;
+    document.getElementById('confessionText').textContent=c.text;
+    document.title=`Confession – ConfessHub`;
+    updateLikeUI(c.id);
+}
+
+function updateLikeUI(id){
+    const count=getStoredLikes(id);
+    const liked=isLiked(id);
+    const btn=document.getElementById('likeBtn');
+    document.getElementById('likeCount').textContent=count;
+    btn.classList.toggle('liked',liked);
+    btn.innerHTML=`<i class="${liked?'fas':'far'} fa-heart me-1"></i><span id="likeCount">${count}</span>`;
+}
+
+function toggleLike(){
+    if(!currentConfession)return;
+    const id=currentConfession.id;
+    try{
+        const likes=JSON.parse(localStorage.getItem('likes')||'{}');
+        const liked=JSON.parse(localStorage.getItem('liked')||'{}');
+        const base=currentConfession.likes||0;
+        if(liked[id]){delete liked[id];likes[id]=Math.max(0,(likes[id]||base+1)-1);}
+        else{liked[id]=true;likes[id]=(likes[id]||base)+1;}
+        localStorage.setItem('likes',JSON.stringify(likes));
+        localStorage.setItem('liked',JSON.stringify(liked));
+        updateLikeUI(id);
+    }catch{}
+}
+
+function renderComments(){
+    if(!currentConfession)return;
+    const seedComments=currentConfession.comments||[];
+    const extraComments=getExtraComments(currentConfession.id);
+    const all=[...seedComments,...extraComments];
+    const list=document.getElementById('commentsList');
+    document.getElementById('noComments').style.display=all.length?'none':'block';
+    document.getElementById('commentCountBadge').textContent=all.length;
+    list.innerHTML='';
+    all.forEach(comment=>{
+        if(!comment.text)return;
+        list.innerHTML+=`<div class="d-flex gap-3 mb-4 pb-4 border-bottom">
+            <div class="comment-avatar">${comment.avatar||'👤'}</div>
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="fw-semibold small">${escapeHtml(comment.author||'Anonymous')}</span>
+                    <span class="text-muted small">${comment.timeAgo||'Just now'}</span>
+                </div>
+                <p class="mb-0 text-dark small">${escapeHtml(comment.text)}</p>
+            </div>
+        </div>`;
+    });
+}
+
+function submitComment(){
+    const text=document.getElementById('commentText').value.trim();
+    if(!text||!currentConfession)return;
+    const comment={id:Date.now(),author:'Anonymous',avatar:'👤',text,timeAgo:'Just now',timestamp:Date.now()};
+    try{
+        const extra=JSON.parse(localStorage.getItem('extraComments')||'{}');
+        extra[currentConfession.id]=extra[currentConfession.id]||[];
+        extra[currentConfession.id].push(comment);
+        localStorage.setItem('extraComments',JSON.stringify(extra));
+    }catch{}
+    document.getElementById('commentText').value='';
+    renderComments();
+    document.getElementById('commentsList').scrollIntoView({behavior:'smooth'});
+}
+
+function renderRelated(c){
+    const all=[...getUserConfessions(),...SEED].filter(x=>String(x.id)!==String(c.id)&&x.category===c.category).slice(0,3);
+    if(!all.length){
+        document.querySelector('.col-lg-4').style.display='none';return;
+    }
+    const container=document.getElementById('relatedConfessions');
+    container.innerHTML='';
+    all.forEach(r=>{
+        container.innerHTML+=`<a href="view-confession.html?id=${r.id}" class="text-decoration-none">
+            <div class="card related-card border mb-3 p-3" style="border-radius:10px">
+                <p class="text-dark small mb-2 clamp-3">${escapeHtml(r.text)}</p>
+                <div class="d-flex justify-content-between text-muted" style="font-size:.75rem">
+                    <span><i class="far fa-heart me-1"></i>${r.likes}</span>
+                    <span>${r.timeAgo}</span>
+                </div>
+            </div>
+        </a>`;
+    });
+}
+
+function shareConfession(){
+    if(navigator.share){navigator.share({title:'ConfessHub Confession',url:window.location.href}).catch(()=>{})}
+    else{navigator.clipboard.writeText(window.location.href).then(()=>alert('Link copied!')).catch(()=>{})}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+    const id=new URLSearchParams(window.location.search).get('id');
+    if(!id){document.getElementById('notFound').style.display='block';document.getElementById('mainContent').style.display='none';return;}
+    currentConfession=findConfession(id);
+    if(!currentConfession){document.getElementById('notFound').style.display='block';document.getElementById('mainContent').style.display='none';return;}
+    renderConfession(currentConfession);
+    renderComments();
+    renderRelated(currentConfession);
+    document.getElementById('commentText').addEventListener('keydown',e=>{if(e.ctrlKey&&e.key==='Enter')submitComment();});
+});
+</script>
+</body>
+</html>

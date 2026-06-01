@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConfessHub – Share Anonymously</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        .clamp-3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+        .floating-blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;pointer-events:none;z-index:0}
+        .hero-section{position:relative;overflow:hidden}
+        .hero-section .container{position:relative;z-index:1}
+    </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <div class="logo-icon"><i class="fas fa-comment"></i></div>
+            <span class="fw-bold">ConfessHub</span>
+            <span class="text-muted small d-none d-sm-inline">Share anonymously</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+                <li class="nav-item"><a class="nav-link active fw-semibold" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="confessions.html">Confessions</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="rules.html">Rules</a></li>
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <a class="btn btn-primary btn-sm px-3" href="share.html">
+                        <i class="fas fa-plus me-1"></i>Share
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero-section py-5">
+    <!-- Decorative blobs -->
+    <div class="floating-blob" style="width:300px;height:300px;background:#c4b5fd;top:-80px;right:-60px"></div>
+    <div class="floating-blob" style="width:200px;height:200px;background:#ddd6fe;bottom:0;left:-60px"></div>
+
+    <div class="container py-4">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <p class="text-primary fw-semibold small mb-2">
+                    <i class="fas fa-shield-alt me-1"></i>100% Anonymous. 100% Safe.
+                </p>
+                <h1 class="display-4 fw-bold mb-4 lh-sm">
+                    Share. Release.<br>
+                    <span class="text-primary">Stay Anonymous.</span>
+                </h1>
+                <p class="lead text-muted mb-4">
+                    Confess your thoughts, appreciate someone, or just let it off your chest. No account. No trace.
+                </p>
+                <div class="d-flex flex-wrap gap-3 mb-5">
+                    <a href="share.html" class="btn btn-primary btn-lg px-4">
+                        <i class="fas fa-paper-plane me-2"></i>Share a Confession
+                    </a>
+                    <a href="confessions.html" class="btn btn-outline-secondary btn-lg px-4">
+                        Browse Confessions
+                    </a>
+                </div>
+                <!-- Trust badges -->
+                <div class="d-flex flex-wrap gap-3 text-muted small">
+                    <span><i class="fas fa-user-secret me-1 text-primary"></i>Anonymous</span>
+                    <span><i class="fas fa-lock me-1 text-primary"></i>No Login</span>
+                    <span><i class="fas fa-heart me-1 text-primary"></i>Safe Community</span>
+                    <span><i class="fas fa-bolt me-1 text-primary"></i>Instant Post</span>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+                <div class="hero-illustration-wrapper position-relative">
+                    <div class="illustration-card" style="width:280px;height:280px">
+                        <div class="illustration-inner" style="width:200px;height:200px">
+                            <span class="illustration-emoji">📧</span>
+                        </div>
+                        <div class="illustration-badge"><i class="fas fa-heart"></i></div>
+                    </div>
+                    <!-- Floating cards -->
+                    <div class="card border-0 shadow position-absolute px-3 py-2 d-flex flex-row align-items-center gap-2"
+                         style="bottom:-20px;left:-40px;border-radius:12px;white-space:nowrap">
+                        <span style="font-size:1.2rem">🎭</span>
+                        <span class="small fw-semibold">Anonymous</span>
+                    </div>
+                    <div class="card border-0 shadow position-absolute px-3 py-2 d-flex flex-row align-items-center gap-2"
+                         style="top:-20px;right:-30px;border-radius:12px;white-space:nowrap">
+                        <span style="font-size:1.2rem">💜</span>
+                        <span class="small fw-semibold">12K+ confessions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Stats strip ── -->
+<div class="bg-white border-top border-bottom py-4">
+    <div class="container">
+        <div class="row g-4 text-center">
+            <div class="col-6 col-md-3">
+                <div class="fw-bold" style="font-size:1.75rem;color:var(--primary-color)">12K+</div>
+                <div class="text-muted small">Confessions</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="fw-bold" style="font-size:1.75rem;color:var(--primary-color)">45K+</div>
+                <div class="text-muted small">Community Members</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="fw-bold" style="font-size:1.75rem;color:var(--primary-color)">98K+</div>
+                <div class="text-muted small">Supportive Comments</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="fw-bold" style="font-size:1.75rem;color:var(--primary-color)">100%</div>
+                <div class="text-muted small">Anonymous Always</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Categories ── -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold mb-1">Browse by Category</h2>
+            <p class="text-muted small">Find confessions that resonate with you</p>
+        </div>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+            <a href="confessions.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3">🌐 All</a>
+            <a href="confessions.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3">🎓 School-life</a>
+            <a href="confessions.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3">💼 Work</a>
+            <a href="confessions.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3">❤️ Relationship</a>
+            <a href="confessions.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3">👥 Social</a>
+            <a href="confessions.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3">🏠 Family</a>
+            <a href="confessions.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3">💚 Health</a>
+            <a href="confessions.html" class="btn btn-outline-secondary btn-sm rounded-pill px-3">🎭 Anonymous</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── Latest Confessions ── -->
+<section class="py-4">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+            <div>
+                <h2 class="fw-bold mb-0">Latest Confessions</h2>
+                <p class="text-muted small mb-0">Fresh from the community</p>
+            </div>
+            <a href="confessions.html" class="btn btn-outline-primary btn-sm">
+                View All <i class="fas fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+        <div class="row g-4" id="confessionsGrid"></div>
+    </div>
+</section>
+
+<!-- ── How it works ── -->
+<section class="py-5 mt-3" style="background:#faf5ff">
+    <div class="container">
+        <div class="text-center mb-5">
+            <p class="text-primary fw-semibold small mb-1">Super Simple</p>
+            <h2 class="fw-bold">How It Works</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4 text-center feature-card">
+                    <div class="icon-circle bg-primary bg-opacity-10 mx-auto mb-3">✍️</div>
+                    <h5 class="fw-semibold mb-2">Write</h5>
+                    <p class="text-muted small mb-0">Type out what's on your mind. No account, no name, no email. Just your words.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4 text-center feature-card">
+                    <div class="icon-circle bg-primary bg-opacity-10 mx-auto mb-3">🏷️</div>
+                    <h5 class="fw-semibold mb-2">Categorise</h5>
+                    <p class="text-muted small mb-0">Pick a category so others with similar experiences can find and connect with you.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100 p-4 text-center feature-card">
+                    <div class="icon-circle bg-primary bg-opacity-10 mx-auto mb-3">💜</div>
+                    <h5 class="fw-semibold mb-2">Connect</h5>
+                    <p class="text-muted small mb-0">Your confession goes live instantly. The community responds with support and empathy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="py-5 text-center bg-white">
+    <div class="container">
+        <div class="col-md-7 mx-auto">
+            <h2 class="fw-bold mb-3">Something on your mind?</h2>
+            <p class="text-muted mb-4">Join thousands of others who found relief, connection, and understanding through anonymous sharing.</p>
+            <a href="share.html" class="btn btn-primary btn-lg px-5">
+                <i class="fas fa-paper-plane me-2"></i>Share Anonymously
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="py-5 border-top bg-white">
+    <div class="container">
+        <div class="row g-4 mb-4">
+            <div class="col-lg-4">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <div class="logo-icon"><i class="fas fa-comment"></i></div>
+                    <span class="fw-bold">ConfessHub</span>
+                </div>
+                <p class="text-muted small mb-0">A safe, anonymous space to share your thoughts without fear of judgment.</p>
+            </div>
+            <div class="col-6 col-lg-2 offset-lg-2">
+                <h6 class="fw-semibold mb-3">Navigate</h6>
+                <div class="d-flex flex-column gap-2">
+                    <a href="index.html" class="text-muted text-decoration-none small">Home</a>
+                    <a href="confessions.html" class="text-muted text-decoration-none small">Confessions</a>
+                    <a href="share.html" class="text-muted text-decoration-none small">Share</a>
+                </div>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h6 class="fw-semibold mb-3">Info</h6>
+                <div class="d-flex flex-column gap-2">
+                    <a href="about.html" class="text-muted text-decoration-none small">About</a>
+                    <a href="rules.html" class="text-muted text-decoration-none small">Rules</a>
+                    <a href="rules.html" class="text-muted text-decoration-none small">Privacy</a>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <h6 class="fw-semibold mb-3">Share</h6>
+                <a href="share.html" class="btn btn-primary btn-sm w-100">
+                    <i class="fas fa-plus me-1"></i>New Confession
+                </a>
+            </div>
+        </div>
+        <div class="border-top pt-4 text-center text-muted small">
+            💜 ConfessHub &copy; 2024 — Anonymous sharing for everyone
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const SEED=[
+    {id:1,text:"I'm shocked by how that one teacher always believes we can hear it all even when the whole class is whispering. She somehow knows everything.",category:"School-life",timeAgo:"3 hours ago",timestamp:Date.now()-10800000,likes:12,comments:[{},{id:2}]},
+    {id:2,text:"Sometimes I wish I had the courage to quit my job and travel full time. Life is too short to be stuck in a cubicle doing work you hate.",category:"Work",timeAgo:"5 hours ago",timestamp:Date.now()-18000000,likes:34,comments:[{}]},
+    {id:3,text:"I wish school would be better if people didn't judge each other all the time. We're all just trying to figure life out together.",category:"School-life",timeAgo:"7 hours ago",timestamp:Date.now()-25200000,likes:28,comments:[{},{},{}]},
+    {id:4,text:"I'm scared to show how much you mean to me but I really enjoy every moment we spend together. I just don't want to ruin what we have.",category:"Relationship",timeAgo:"1 day ago",timestamp:Date.now()-86400000,likes:55,comments:[]},
+    {id:5,text:"I spend more time daydreaming about a better life than actually working toward one. I know what I need to do but somehow never start.",category:"Social",timeAgo:"1 day ago",timestamp:Date.now()-90000000,likes:19,comments:[{}]},
+    {id:6,text:"If you're the person reading this, you matter! 💜 Never forget that the world is better with you in it.",category:"Social",timeAgo:"2 days ago",timestamp:Date.now()-172800000,likes:102,comments:[{},{}]},
+];
+const CAT_EMOJI={"School-life":"🎓","Work":"💼","Relationship":"❤️","Social":"👥","Family":"🏠","Health":"💚","Anonymous":"🎭","Other":"✨"};
+
+function getUserConfessions(){try{return JSON.parse(localStorage.getItem('confessions')||'[]')}catch{return[]}}
+function getTotalLikes(id){try{const l=JSON.parse(localStorage.getItem('likes')||'{}');const base=(SEED.find(c=>c.id===id)||{}).likes||0;return l[id]!==undefined?l[id]:base}catch{return 0}}
+function escapeHtml(str){const d=document.createElement('div');d.textContent=str;return d.innerHTML}
+
+function card(c){
+    const likes=getTotalLikes(c.id);
+    const comments=c.comments?.length||0;
+    const emoji=CAT_EMOJI[c.category]||'✨';
+    return`<div class="col-md-6 col-lg-4"><a href="view-confession.html?id=${c.id}" class="text-decoration-none"><div class="card confession-card border-0 shadow-sm h-100"><div class="card-body d-flex flex-column"><div class="mb-3"><span class="badge bg-primary bg-opacity-10 text-primary">${emoji} ${escapeHtml(c.category)}</span></div><p class="text-dark mb-3 flex-grow-1 clamp-3">${escapeHtml(c.text)}</p><div class="d-flex justify-content-between align-items-center text-muted small mt-auto"><div class="d-flex align-items-center gap-2"><div style="width:24px;height:24px;background:#f3e8ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem">👤</div><span>Anonymous</span></div><div class="d-flex gap-3"><span><i class="far fa-heart me-1"></i>${likes}</span><span><i class="far fa-comment me-1"></i>${comments}</span></div></div><div class="border-top mt-3 pt-2"><small class="text-muted"><i class="far fa-clock me-1"></i>${c.timeAgo}</small></div></div></div></a></div>`;
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+    const user=getUserConfessions();
+    const all=[...user,...SEED].slice(0,6);
+    const grid=document.getElementById('confessionsGrid');
+    all.forEach(c=>grid.innerHTML+=card(c));
+});
+</script>
+</body>
+</html>

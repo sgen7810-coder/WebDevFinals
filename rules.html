@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Rules – ConfessHub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        .hero-rules{background:linear-gradient(135deg,#faf5ff 0%,#f3e8ff 100%)}
+        .rule-card{border-radius:14px;transition:.2s}
+        .rule-card:hover{box-shadow:0 4px 16px rgba(124,58,237,.1)}
+        .rule-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;flex-shrink:0}
+        .rule-num.do{background:#d1fae5;color:#065f46}
+        .rule-num.dont{background:#fee2e2;color:#991b1b}
+        .section-tab.active{background:var(--primary-color);color:#fff;border-color:var(--primary-color)}
+        .section-tab{border-radius:50px;cursor:pointer;transition:.2s;padding:.4rem 1.1rem;border:2px solid #e9d5ff;background:#fff;color:#374151;font-weight:500;font-size:.9rem}
+        .section-tab:hover:not(.active){background:#faf5ff;border-color:var(--primary-color);color:var(--primary-color)}
+        .panel{display:none}
+        .panel.active{display:block}
+        .highlight-box{border-left:4px solid var(--primary-color);background:linear-gradient(135deg,#faf5ff,#f3e8ff);border-radius:0 10px 10px 0}
+        .faq-item{border-bottom:1px solid #f3e8ff}
+        .faq-question{cursor:pointer;user-select:none}
+        .faq-answer{display:none;padding-top:.75rem}
+        .faq-item.open .faq-answer{display:block}
+        .faq-item.open .faq-icon{transform:rotate(180deg)}
+        .faq-icon{transition:.3s}
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+            <div class="logo-icon"><i class="fas fa-comment"></i></div>
+            <span class="fw-bold">ConfessHub</span>
+            <span class="text-muted small d-none d-sm-inline">Share anonymously</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="confessions.html">Confessions</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                <li class="nav-item"><a class="nav-link active fw-semibold" href="rules.html">Rules</a></li>
+                <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+                    <a class="btn btn-primary btn-sm px-3" href="share.html">
+                        <i class="fas fa-plus me-1"></i>Share
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-rules py-5">
+    <div class="container text-center py-3">
+        <div class="illustration-card mx-auto mb-4" style="width:90px;height:90px;border-radius:1.25rem">
+            <span style="font-size:2.2rem">📋</span>
+        </div>
+        <h1 class="display-5 fw-bold mb-3">Community Guidelines</h1>
+        <p class="text-muted col-md-7 mx-auto lead">
+            These rules keep ConfessHub a safe, supportive space for everyone. Please read them before posting.
+        </p>
+    </div>
+</section>
+
+<!-- Tabs -->
+<section class="py-5 bg-white">
+    <div class="container">
+        <div class="d-flex flex-wrap gap-2 justify-content-center mb-5">
+            <button class="section-tab active" onclick="switchTab(this,'dos')">✅ What You Can Do</button>
+            <button class="section-tab" onclick="switchTab(this,'donts')">🚫 What's Not Allowed</button>
+            <button class="section-tab" onclick="switchTab(this,'privacy')">🔒 Privacy Policy</button>
+            <button class="section-tab" onclick="switchTab(this,'faq')">❓ FAQ</button>
+        </div>
+
+        <!-- DO's panel -->
+        <div id="panel-dos" class="panel active col-lg-9 mx-auto">
+            <div class="highlight-box p-4 mb-5">
+                <p class="mb-0 text-dark"><strong>ConfessHub is built on trust.</strong> These are the things we celebrate and encourage in our community.</p>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num do">1</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">Be honest</h6>
+                            <p class="text-muted small mb-0">Share your genuine feelings and thoughts. Authenticity is what makes this community valuable.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num do">2</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">Be kind in comments</h6>
+                            <p class="text-muted small mb-0">Respond with empathy. Everyone here is being vulnerable — treat them the way you'd want to be treated.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num do">3</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">Use categories wisely</h6>
+                            <p class="text-muted small mb-0">Tag your confession correctly so others with similar experiences can find it and connect with you.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num do">4</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">Support others</h6>
+                            <p class="text-muted small mb-0">Leave supportive comments. A kind word can make a huge difference to someone going through a hard time.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num do">5</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">Keep it real</h6>
+                            <p class="text-muted small mb-0">Share actual thoughts and experiences. This isn't a place for fictional stories or creative writing.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num do">6</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">Reach out for help</h6>
+                            <p class="text-muted small mb-0">If you or someone in the comments needs real help, encourage them to seek professional support. We care about mental health.</p>
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+
+        <!-- DON'Ts panel -->
+        <div id="panel-donts" class="panel col-lg-9 mx-auto">
+            <div class="alert alert-danger border-0 mb-5" style="background:#fff1f2;border-left:4px solid #ef4444!important;border-radius:0 10px 10px 0">
+                <p class="mb-0"><strong>Violating these rules will result in your content being removed.</strong> Repeated violations may result in your IP being blocked from posting.</p>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num dont">1</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">No hate speech</h6>
+                            <p class="text-muted small mb-0">Content targeting people based on race, ethnicity, religion, gender, sexuality, or disability will be removed immediately.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num dont">2</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">No personal information</h6>
+                            <p class="text-muted small mb-0">Never share full names, addresses, phone numbers, or other identifying information about real people.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num dont">3</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">No bullying or harassment</h6>
+                            <p class="text-muted small mb-0">Using this platform to target, mock, or harass specific individuals is strictly prohibited.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num dont">4</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">No explicit content</h6>
+                            <p class="text-muted small mb-0">Graphic sexual content, graphic violence, or content involving minors is absolutely not permitted.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num dont">5</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">No spam or self-promotion</h6>
+                            <p class="text-muted small mb-0">Don't use ConfessHub to advertise products, services, or to post repetitive content.</p>
+                        </div>
+                    </div>
+                </div></div>
+                <div class="col-md-6"><div class="card rule-card border-0 shadow-sm p-4 h-100">
+                    <div class="d-flex gap-3">
+                        <div class="rule-num dont">6</div>
+                        <div>
+                            <h6 class="fw-semibold mb-1">No illegal content</h6>
+                            <p class="text-muted small mb-0">Confessions that describe, promote, or incite illegal activities will be removed and may be reported.</p>
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+        </div>
+
+        <!-- Privacy panel -->
+        <div id="panel-privacy" class="panel col-lg-8 mx-auto">
+            <div class="highlight-box p-4 mb-5">
+                <p class="mb-0"><strong>Your privacy is our #1 priority.</strong> Here is exactly what we do and don't collect.</p>
+            </div>
+            <div class="d-flex flex-column gap-4">
+                <div class="card border-0 shadow-sm p-4">
+                    <div class="d-flex gap-3 align-items-start">
+                        <div style="width:44px;height:44px;background:#d1fae5;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#065f46;flex-shrink:0"><i class="fas fa-check"></i></div>
+                        <div>
+                            <h6 class="fw-semibold mb-2">What we do NOT collect</h6>
+                            <ul class="text-muted small mb-0 ps-3">
+                                <li>Your name, email, or any account details</li>
+                                <li>Your IP address or device fingerprint</li>
+                                <li>Your location or browser history</li>
+                                <li>Any personally identifiable information</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm p-4">
+                    <div class="d-flex gap-3 align-items-start">
+                        <div style="width:44px;height:44px;background:#fef3c7;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#92400e;flex-shrink:0"><i class="fas fa-info"></i></div>
+                        <div>
+                            <h6 class="fw-semibold mb-2">What we do store</h6>
+                            <ul class="text-muted small mb-0 ps-3">
+                                <li>The text of your confession</li>
+                                <li>The category you selected</li>
+                                <li>Timestamp of when it was posted</li>
+                                <li>Anonymous interaction counts (likes, comments)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm p-4">
+                    <div class="d-flex gap-3 align-items-start">
+                        <div style="width:44px;height:44px;background:#ede9fe;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#5b21b6;flex-shrink:0"><i class="fas fa-database"></i></div>
+                        <div>
+                            <h6 class="fw-semibold mb-2">Local storage</h6>
+                            <p class="text-muted small mb-0">Your likes, comments, and confessions are stored in your own browser's local storage. This data never leaves your device unless you post a confession publicly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-0 shadow-sm p-4">
+                    <div class="d-flex gap-3 align-items-start">
+                        <div style="width:44px;height:44px;background:#fee2e2;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#991b1b;flex-shrink:0"><i class="fas fa-cookie"></i></div>
+                        <div>
+                            <h6 class="fw-semibold mb-2">Cookies</h6>
+                            <p class="text-muted small mb-0">We only use cookies that are strictly necessary for the site to function. We do not use any tracking or advertising cookies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ panel -->
+        <div id="panel-faq" class="panel col-lg-8 mx-auto">
+            <div class="d-flex flex-column gap-0">
+                <div class="faq-item py-4">
+                    <div class="faq-question d-flex justify-content-between align-items-center" onclick="toggleFaq(this)">
+                        <span class="fw-semibold">Is my confession really anonymous?</span>
+                        <i class="fas fa-chevron-down faq-icon text-primary"></i>
+                    </div>
+                    <div class="faq-answer text-muted small">Yes, completely. We do not collect your name, email, IP address, or any other identifying information. Once your confession is submitted, there is no way for us or anyone else to trace it back to you.</div>
+                </div>
+                <div class="faq-item py-4">
+                    <div class="faq-question d-flex justify-content-between align-items-center" onclick="toggleFaq(this)">
+                        <span class="fw-semibold">Can I delete my confession after posting?</span>
+                        <i class="fas fa-chevron-down faq-icon text-primary"></i>
+                    </div>
+                    <div class="faq-answer text-muted small">Because confessions are anonymous, we cannot verify ownership, so there is no self-delete feature for published confessions. However, you can report content that violates community rules for moderator review.</div>
+                </div>
+                <div class="faq-item py-4">
+                    <div class="faq-question d-flex justify-content-between align-items-center" onclick="toggleFaq(this)">
+                        <span class="fw-semibold">How are comments moderated?</span>
+                        <i class="fas fa-chevron-down faq-icon text-primary"></i>
+                    </div>
+                    <div class="faq-answer text-muted small">Comments go through an automated filter for obvious policy violations. The community can also flag inappropriate comments for human review. We aim to review flagged content within 24 hours.</div>
+                </div>
+                <div class="faq-item py-4">
+                    <div class="faq-question d-flex justify-content-between align-items-center" onclick="toggleFaq(this)">
+                        <span class="fw-semibold">What if someone is in danger?</span>
+                        <i class="fas fa-chevron-down faq-icon text-primary"></i>
+                    </div>
+                    <div class="faq-answer text-muted small">If you see a post suggesting someone is in immediate danger, please use the report button and select "Safety concern." Our team reviews these urgently. If you or someone you know is in crisis, please contact a crisis helpline in your country immediately.</div>
+                </div>
+                <div class="faq-item py-4">
+                    <div class="faq-question d-flex justify-content-between align-items-center" onclick="toggleFaq(this)">
+                        <span class="fw-semibold">Do I need to create an account?</span>
+                        <i class="fas fa-chevron-down faq-icon text-primary"></i>
+                    </div>
+                    <div class="faq-answer text-muted small">No. ConfessHub requires zero account creation. You can post confessions, leave comments, and interact with content entirely without signing up or logging in.</div>
+                </div>
+                <div class="faq-item py-4" style="border-bottom:none">
+                    <div class="faq-question d-flex justify-content-between align-items-center" onclick="toggleFaq(this)">
+                        <span class="fw-semibold">Can I share ConfessHub posts on social media?</span>
+                        <i class="fas fa-chevron-down faq-icon text-primary"></i>
+                    </div>
+                    <div class="faq-answer text-muted small">Yes, you can share the link to any confession. However, please be mindful that even though authors are anonymous, sharing confessions widely could still feel violating to the person who posted. Use good judgment.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 text-center" style="background:#faf5ff">
+    <div class="container">
+        <h2 class="fw-bold mb-3">You're ready to go</h2>
+        <p class="text-muted mb-4 col-md-6 mx-auto">You've read the rules. Now go ahead — let it out.</p>
+        <a href="share.html" class="btn btn-primary btn-lg px-5">Share a Confession 💜</a>
+    </div>
+</section>
+
+<footer class="py-4 border-top bg-white">
+    <div class="container text-center text-muted small">
+        <p class="mb-2">💜 ConfessHub — Share anonymously, support each other</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="about.html" class="text-muted text-decoration-none">About</a>
+            <a href="rules.html" class="text-muted text-decoration-none">Rules</a>
+            <a href="share.html" class="text-muted text-decoration-none">Share</a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function switchTab(btn, panelId) {
+    document.querySelectorAll('.section-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + panelId).classList.add('active');
+}
+function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    item.classList.toggle('open');
+}
+</script>
+</body>
+</html>
